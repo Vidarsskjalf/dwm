@@ -1,3 +1,4 @@
+#include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -62,12 +63,25 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
+/* Volume control */
+static const char *upvol[]   = { "/usr/bin/pamixer", "--increase", "5", NULL };
+static const char *downvol[] = { "/usr/bin/pamixer", "--decrease", "5", NULL };
+static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
+/* Brightness control */
+static const char *brightnessup[] = { "brightnessctl", "set", "10%+", NULL };
+static const char *brightnessdown[] = { "brightnessctl", "set", "10%-", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,						XK_e,      spawn,          SHCMD( "thunar" )},
 	{ MODKEY,						XK_f,      spawn,          SHCMD( "firefox" )},
+	{ 0,							XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	{ 0,							XF86XK_AudioRaiseVolume, spawn, {.v = upvol } },
+	{ 0,							XF86XK_AudioMute,        spawn, {.v = mutevol } },
+	{ 0,							XF86XK_MonBrightnessUp,	spawn, {.v = brightnessup } },
+	{ 0,							XF86XK_MonBrightnessDown, spawn, {.v = brightnessdown } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
