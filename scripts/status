@@ -21,10 +21,25 @@ while true; do
     prev_idle=$idle
     prev_total=$total
 
-    # Update the root window name with CPU usage and date
-    xsetroot -name " $diff_usage% CPU | $(date +%A" "%d" "%B" "%H:%M:%S)"
+    # Get the IP address
+    ip_address=$(ip addr show | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}' | cut -d'/' -f1 | head -n 1)
+       
+    # If no IP address is found
+    if [ -z "$ip_address" ]; then
+        ip_address="No IP"
+    fi
 
-    # Sleep for 5 seconds
+    # Get the battery percentage
+    battery_percentage=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+    
+    # If no battery percentage is found
+    if [ -z "$battery_percentage" ]; then
+        battery_percentage="No Battery"
+    fi
+
+    # Update the root window name with CPU usage, IP address, battery percentage, and date
+    xsetroot -name " $ip_address | $diff_usage% CPU | $battery_percentage% | $(date +%A" "%d" "%B" "%H:%M:%S)"
+
+    # Sleep for 1 second
     sleep 1
 done
-
