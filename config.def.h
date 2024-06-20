@@ -1,3 +1,4 @@
+#include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
@@ -6,7 +7,7 @@ static const unsigned int gappx     = 5;        /* gap size between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "GeistMonoNerdFont:size=14" };
+static const char *fonts[]          = { "GeistMonoNerdFont:size=14", "NotoColorEmoji:pixelsize=14:antialias=true:autohint=true" };
 static const char dmenufont[]       = "GeistMonoNerdFont:size=14";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -62,10 +63,25 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
+/* Volume control */
+static const char *upvol[]   = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "up", NULL };
+static const char *downvol[] = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "down", NULL };
+static const char *mutevol[] = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "mute", NULL };
+/* Brightness control */
+static const char *brightnessup[] = { "brightnessctl", "set", "10%+", NULL };
+static const char *brightnessdown[] = { "brightnessctl", "set", "10%-", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,						XK_e,      spawn,          SHCMD( "thunar" )},
+	{ MODKEY,						XK_f,      spawn,          SHCMD( "firefox" )},
+	{ 0,							XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	{ 0,							XF86XK_AudioRaiseVolume, spawn, {.v = upvol } },
+	{ 0,							XF86XK_AudioMute,        spawn, {.v = mutevol } },
+	{ 0,							XF86XK_MonBrightnessUp,	spawn, {.v = brightnessup } },
+	{ 0,							XF86XK_MonBrightnessDown, spawn, {.v = brightnessdown } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -75,9 +91,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	//{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },  // Commented to allow firefox shortcut
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },

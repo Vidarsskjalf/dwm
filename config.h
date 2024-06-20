@@ -1,5 +1,5 @@
-#include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h> // Function keybinds
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -29,9 +29,9 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class       instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",      NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",   NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "Alacritty", NULL,    "Alacritty",   0,            0,           -1 },
+	{ "Gimp",      NULL,       NULL,       0,            0,           -1 },
+	{ "Firefox",   NULL,       NULL,       1 << 1,       0,           -1 },
+	{ "Alacritty", NULL,	   NULL,       0,            0,           -1 },
 };
 
 /* layout(s) */
@@ -42,9 +42,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "[]=",      tile }, /* first entry is default */
+	//{ "><>",      NULL },    /* no layout function means floating behavior */
+	//{ "[M]",      monocle },
 };
 
 /* key definitions */
@@ -64,9 +64,9 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "alacritty", NULL };
 
 /* Volume control */
-static const char *upvol[]   = { "/usr/bin/pamixer", "--increase", "5", NULL };
-static const char *downvol[] = { "/usr/bin/pamixer", "--decrease", "5", NULL };
-static const char *mutevol[] = { "/usr/bin/pamixer", "--toggle-mute", NULL };
+static const char *upvol[]   = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "up", NULL };
+static const char *downvol[] = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "down", NULL };
+static const char *mutevol[] = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "mute", NULL };
 /* Brightness control */
 static const char *brightnessup[] = { "brightnessctl", "set", "10%+", NULL };
 static const char *brightnessdown[] = { "brightnessctl", "set", "10%-", NULL };
@@ -92,11 +92,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	//{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },  // Commented to allow firefox shortcut
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	//{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	//{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	//{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	//{ MODKEY,                       XK_space,  setlayout,      {0} },
+	//{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
