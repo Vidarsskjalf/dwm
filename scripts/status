@@ -26,7 +26,7 @@ while true; do
        
     # If no IP address is found
     if [ -z "$ip_address" ]; then
-        ip_address="No IP"
+        ip_address="Network disconnected"
     fi
 
     # Get the battery percentage
