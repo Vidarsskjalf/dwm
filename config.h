@@ -64,9 +64,9 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "alacritty", NULL };
 
 /* Volume control */
-static const char *upvol[]   = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "up", NULL };
-static const char *downvol[] = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "down", NULL };
-static const char *mutevol[] = { "/home/cursed/build/suckless/dwm/scripts/adjust_volume.sh", "mute", NULL };
+static const char *upvol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *downvol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *mutevol[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK", "toggle", NULL };
 /* Brightness control */
 static const char *brightnessup[] = { "brightnessctl", "set", "10%+", NULL };
 static const char *brightnessdown[] = { "brightnessctl", "set", "10%-", NULL };
@@ -76,6 +76,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,						XK_e,      spawn,          SHCMD( "thunar" )},
+	{ MODKEY,						XK_r,      spawn,          SHCMD( "remmina" )},
+	{ MODKEY,						XK_s,      spawn,          SHCMD( "signal-desktop" )},
+	{ MODKEY,						XK_v,      spawn,          SHCMD( "virt-manager" )},
 	{ MODKEY,						XK_f,      spawn,          SHCMD( "firefox" )},
 	{ 0,							XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
 	{ 0,							XF86XK_AudioRaiseVolume, spawn, {.v = upvol } },
