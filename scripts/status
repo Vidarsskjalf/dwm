@@ -2,6 +2,11 @@ prev_idle=0
 prev_total=0
 
 while true; do
+
+    #########
+    ## CPU ##
+    #########
+
     # Read CPU statistics
     cpu=($(head -n 1 /proc/stat))
     idle=${cpu[4]}
@@ -21,6 +26,10 @@ while true; do
     prev_idle=$idle
     prev_total=$total
 
+    #############
+    ## Network ##
+    #############
+
     # Get the IP address
     ip_address=$(ip addr show | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}' | cut -d'/' -f1 | head -n 1)
        
@@ -29,6 +38,10 @@ while true; do
         ip_address="Network disconnected"
     fi
 
+    #############
+    ## Battery ##
+    #############
+
     # Get the battery percentage
     battery_percentage=$(acpi -b | grep -P -o '[0-9]+(?=%)')
     
@@ -36,6 +49,10 @@ while true; do
     if [ -z "$battery_percentage" ]; then
         battery_percentage="No Battery"
     fi
+
+    ######################
+    ## Status bar order ##
+    ######################
 
     # Update the root window name with CPU usage, IP address, battery percentage, and date
     xsetroot -name " $ip_address | $diff_usage% CPU | $battery_percentage% | $(date +%A" "%d" "%B" "%H:%M:%S)"
