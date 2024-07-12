@@ -1,5 +1,4 @@
-/* See LICENSE file for copyright and license details. */
-#include <X11/XF86keysym.h> // Function keybinds
+/* See LICENSE file for copyright and license details. */ #include <X11/XF86keysym.h> // Function keybinds
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -26,7 +25,9 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ", "Ⅸ" };
+//static const char *firefox_icon = "";
+//static const char *terminal_icon = "";
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -76,6 +77,9 @@ static const char *mutevol[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK", "tog
 /* Screenshot */
 static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
 
+/* Setting key */
+static const char *settings_key[] = { "alacritty", "-e", "bash", "-c", "cd $HOME/build/suckless/dwm; exec bash", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -91,6 +95,7 @@ static const Key keys[] = {
 	{ 0,							XF86XK_MonBrightnessUp,  spawn, SHCMD("~/build/suckless/dwm/scripts/adjust_brightness.sh up") },
 	{ 0,							XF86XK_MonBrightnessDown,spawn, SHCMD("~/build/suckless/dwm/scripts/adjust_brightness.sh down") },
 	{ 0,							XK_Print,  spawn,		   {.v = screenshotcmd } },
+	{ 0,							XF86XK_Tools,  spawn,	   {.v = settings_key } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
