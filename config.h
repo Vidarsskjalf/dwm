@@ -26,8 +26,14 @@ static const char *colors[][3]      = {
 
 /* tagging */
 static const char *tags[] = { "Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ", "Ⅸ" };
-//static const char *firefox_icon = "";
-//static const char *terminal_icon = "";
+
+// CUSTOM TAGS //
+
+//static const char *roman_numerals[] = { "Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ", "Ⅸ" };
+//static const char *firefox_icon = " ";
+//static const char *terminal_icon = " ";
+//static const char *bitwarden_icon = "󰳌 ";
+//static const char *rdp_icon = "󰢹 ";
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -36,8 +42,9 @@ static const Rule rules[] = {
 	 */
 	/* class       instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",      NULL,       NULL,       0,            0,           -1 },
-	{ "Firefox",   NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "Alacritty", NULL,	   NULL,       0,            0,           -1 },
+	{ "firefox",   NULL,       NULL,       1 << 1,       0,           -1 }, // Tag 2
+	{ "Alacritty", NULL,	   NULL,       0,            0,           -1 }, // Tag 1
+	{ "Bitwarden", NULL,	   NULL,	   1 << 2,		 0,			  -1 }, // Tag 3
 };
 
 /* layout(s) */
