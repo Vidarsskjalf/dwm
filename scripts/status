@@ -1,3 +1,5 @@
+#!/bin/bash
+
 prev_idle=0
 prev_total=0
 
@@ -42,8 +44,23 @@ while true; do
     ## Battery ##
     #############
 
+
+    # Thresholds
+    LOW_BATTERY_THRESHOLD=20
+    CRITICAL_BATTERY_THRESHOLD=10
+
     # Get the battery percentage
-    battery_percentage=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+    battery_percentage=$(acpi -b | grep -v "Unknown" | head -n 1 | grep -P -o '[0-9]+(?=%)')
+    #battery_status=$(acpi -b | grep -oP '(Charging|Discharging)')
+
+    #echo "Battery level: $battery_percentage, Status: $battery_status"
+
+   # if [[ $battery_status == "Discharging" && $battery_percentage -le $CRITICAL_BATTERY_THRESHOLD ]]; then
+    #    notify-send -u critical "Battery Low" "Battery level is critically low ($battery_percentage%). Please plug in your charger."
+    #    echo "Critical battery notification sent."
+    #elif [[ $battery_status == "Discharging" && $battery_statys -le $LOW_BATTERY_THRESHOLD ]]; then
+     #   notify-send -u normal "Battery Low" "Battery level is low ($battery_percentage%)."
+    #fi
     
     # If no battery percentage is found
     if [ -z "$battery_percentage" ]; then
