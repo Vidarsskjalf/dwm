@@ -1,0 +1,30 @@
+prev_idle=0
+prev_total=0
+
+while true; do
+    # Read CPU statistics
+    cpu=($(head -n 1 /proc/stat))
+    idle=${cpu[4]}
+    total=0
+
+    # Calculate total CPU time
+    for value in "${cpu[@]:1}"; do
+        total=$((total + value))
+    done
+
+    # Calculate CPU usage since last check
+    diff_idle=$((idle - prev_idle))
+    diff_total=$((total - prev_total))
+    diff_usage=$((100 * (diff_total - diff_idle) / diff_total))
+
+    # Save the current values for the next iteration
+    prev_idle=$idle
+    prev_total=$total
+
+    # Update the root window name with CPU usage and date
+    xsetroot -name " $diff_usage% CPU | $(date +%A" "%d" "%B" "%H:%M:%S)"
+
+    # Sleep for 5 seconds
+    sleep 1
+done
+
